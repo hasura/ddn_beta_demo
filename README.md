@@ -152,17 +152,17 @@ export async function get_payment_status(
 kind: Relationship
 version: v1
 definition:
-  name: TotalInLocalCurrency
+  name: paymentStatus
   source: Invoice
   target:
     command:
-      name: GetPriceInLocalCurrency
+      name: GetPaymentStatus
       subgraph: app
   mapping:
     - source:
         fieldPath:
-          - fieldName: Total
+          - fieldName: InvoiceId
       target:
         argument:
-          argumentName: amount
+          argumentName: order_id
 ```
