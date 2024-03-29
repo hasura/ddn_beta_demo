@@ -1,0 +1,67 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Price
+  fields:
+    - name: amount
+      type: Float!
+    - name: currency
+      type: String!
+  graphql:
+    typeName: App_Price
+    inputTypeName: App_PriceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: fns
+      dataConnectorObjectType: Price
+      fieldMapping:
+        amount:
+          column:
+            name: amount
+        currency:
+          column:
+            name: currency
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Price
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - amount
+          - currency
+
+---
+kind: Command
+version: v1
+definition:
+  name: GetPriceInLocalCurrency
+  outputType: Price!
+  arguments:
+    - name: amount
+      type: Float!
+      description: amount friom
+    - name: to_currency
+      type: String!
+      description: to which currency to convert
+  source:
+    dataConnectorName: fns
+    dataConnectorCommand:
+      function: getPriceInLocalCurrency
+  graphql:
+    rootFieldName: app_getPriceInLocalCurrency
+    rootFieldKind: Query
+  description: fetches the price in given currency
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: GetPriceInLocalCurrency
+  permissions:
+    - role: admin
+      allowExecution: true
+

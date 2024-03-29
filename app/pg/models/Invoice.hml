@@ -130,4 +130,21 @@ definition:
     - role: admin
       select:
         filter: null
+---
+kind: Relationship
+version: v1
+definition:
+  name: TotalInLocalCurrency
+  source: Invoice
+  target:
+    command:
+      name: GetPriceInLocalCurrency
+      subgraph: app
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: Total
+      target:
+        argument:
+          argumentName: amount
 
