@@ -1,0 +1,133 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Invoice
+  fields:
+    - name: BillingAddress
+      type: Varchar
+    - name: BillingCity
+      type: Varchar
+    - name: BillingCountry
+      type: Varchar
+    - name: BillingPostalCode
+      type: Varchar
+    - name: BillingState
+      type: Varchar
+    - name: CustomerId
+      type: Int4!
+    - name: InvoiceDate
+      type: Timestamp!
+    - name: InvoiceId
+      type: Int4!
+    - name: Total
+      type: Numeric!
+  graphql:
+    typeName: App_Invoice
+    inputTypeName: App_InvoiceInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Invoice
+      fieldMapping:
+        BillingAddress:
+          column:
+            name: BillingAddress
+        BillingCity:
+          column:
+            name: BillingCity
+        BillingCountry:
+          column:
+            name: BillingCountry
+        BillingPostalCode:
+          column:
+            name: BillingPostalCode
+        BillingState:
+          column:
+            name: BillingState
+        CustomerId:
+          column:
+            name: CustomerId
+        InvoiceDate:
+          column:
+            name: InvoiceDate
+        InvoiceId:
+          column:
+            name: InvoiceId
+        Total:
+          column:
+            name: Total
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Invoice
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - BillingAddress
+          - BillingCity
+          - BillingCountry
+          - BillingPostalCode
+          - BillingState
+          - CustomerId
+          - InvoiceDate
+          - InvoiceId
+          - Total
+
+---
+kind: Model
+version: v1
+definition:
+  name: Invoice
+  objectType: Invoice
+  source:
+    dataConnectorName: pg
+    collection: Invoice
+  orderableFields:
+    - fieldName: BillingAddress
+      orderByDirections:
+        enableAll: true
+    - fieldName: BillingCity
+      orderByDirections:
+        enableAll: true
+    - fieldName: BillingCountry
+      orderByDirections:
+        enableAll: true
+    - fieldName: BillingPostalCode
+      orderByDirections:
+        enableAll: true
+    - fieldName: BillingState
+      orderByDirections:
+        enableAll: true
+    - fieldName: CustomerId
+      orderByDirections:
+        enableAll: true
+    - fieldName: InvoiceDate
+      orderByDirections:
+        enableAll: true
+    - fieldName: InvoiceId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Total
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_invoice
+    selectUniques:
+      - queryRootField: app_invoiceByInvoiceId
+        uniqueIdentifier:
+          - InvoiceId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Invoice
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

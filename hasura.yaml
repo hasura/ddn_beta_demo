@@ -1,0 +1,14 @@
+version: v1
+project: fine-turkey-1597
+
+# Location of the Project's SupergraphManifests. 
+# A SupergraphManifest "base" has been created in "base.supergraph.hml"  
+# by default to get you started.
+supergraphManifests:
+  rootPath: "."
+  resources:
+  - "/*.hml"
+  
+# The default SupergraphManifest to create a SupergraphBuild with
+# when no SupergraphManifest is explicitly specified.
+defaultSupergraphManifest: base

@@ -1,0 +1,14 @@
+kind: ConnectorManifest
+version: v1
+definition:
+  name: pg
+  type: local
+  connector:
+    type: hub
+    name: hasura/postgres:v0.5.1
+  deployments:
+  - context: .
+    env:
+      CONNECTION_URI:
+        valueFromEnv: APP_PG_CONNECTION_URI
+  tunnel: true

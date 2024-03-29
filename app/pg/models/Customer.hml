@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Customer
+  fields:
+    - name: Address
+      type: Varchar
+    - name: City
+      type: Varchar
+    - name: Company
+      type: Varchar
+    - name: Country
+      type: Varchar
+    - name: CustomerId
+      type: Int4!
+    - name: Email
+      type: Varchar!
+    - name: Fax
+      type: Varchar
+    - name: FirstName
+      type: Varchar!
+    - name: LastName
+      type: Varchar!
+    - name: Phone
+      type: Varchar
+    - name: PostalCode
+      type: Varchar
+    - name: State
+      type: Varchar
+    - name: SupportRepId
+      type: Int4
+  graphql:
+    typeName: App_Customer
+    inputTypeName: App_CustomerInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Customer
+      fieldMapping:
+        Address:
+          column:
+            name: Address
+        City:
+          column:
+            name: City
+        Company:
+          column:
+            name: Company
+        Country:
+          column:
+            name: Country
+        CustomerId:
+          column:
+            name: CustomerId
+        Email:
+          column:
+            name: Email
+        Fax:
+          column:
+            name: Fax
+        FirstName:
+          column:
+            name: FirstName
+        LastName:
+          column:
+            name: LastName
+        Phone:
+          column:
+            name: Phone
+        PostalCode:
+          column:
+            name: PostalCode
+        State:
+          column:
+            name: State
+        SupportRepId:
+          column:
+            name: SupportRepId
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Customer
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - Address
+          - City
+          - Company
+          - Country
+          - CustomerId
+          - Email
+          - Fax
+          - FirstName
+          - LastName
+          - Phone
+          - PostalCode
+          - State
+          - SupportRepId
+
+---
+kind: Model
+version: v1
+definition:
+  name: Customer
+  objectType: Customer
+  source:
+    dataConnectorName: pg
+    collection: Customer
+  orderableFields:
+    - fieldName: Address
+      orderByDirections:
+        enableAll: true
+    - fieldName: City
+      orderByDirections:
+        enableAll: true
+    - fieldName: Company
+      orderByDirections:
+        enableAll: true
+    - fieldName: Country
+      orderByDirections:
+        enableAll: true
+    - fieldName: CustomerId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Email
+      orderByDirections:
+        enableAll: true
+    - fieldName: Fax
+      orderByDirections:
+        enableAll: true
+    - fieldName: FirstName
+      orderByDirections:
+        enableAll: true
+    - fieldName: LastName
+      orderByDirections:
+        enableAll: true
+    - fieldName: Phone
+      orderByDirections:
+        enableAll: true
+    - fieldName: PostalCode
+      orderByDirections:
+        enableAll: true
+    - fieldName: State
+      orderByDirections:
+        enableAll: true
+    - fieldName: SupportRepId
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_customer
+    selectUniques:
+      - queryRootField: app_customerByCustomerId
+        uniqueIdentifier:
+          - CustomerId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Customer
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

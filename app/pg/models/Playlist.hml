@@ -1,0 +1,70 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Playlist
+  fields:
+    - name: Name
+      type: Varchar
+    - name: PlaylistId
+      type: Int4!
+  graphql:
+    typeName: App_Playlist
+    inputTypeName: App_PlaylistInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Playlist
+      fieldMapping:
+        Name:
+          column:
+            name: Name
+        PlaylistId:
+          column:
+            name: PlaylistId
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Playlist
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - Name
+          - PlaylistId
+
+---
+kind: Model
+version: v1
+definition:
+  name: Playlist
+  objectType: Playlist
+  source:
+    dataConnectorName: pg
+    collection: Playlist
+  orderableFields:
+    - fieldName: Name
+      orderByDirections:
+        enableAll: true
+    - fieldName: PlaylistId
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_playlist
+    selectUniques:
+      - queryRootField: app_playlistByPlaylistId
+        uniqueIdentifier:
+          - PlaylistId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Playlist
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

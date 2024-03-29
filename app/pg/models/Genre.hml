@@ -1,0 +1,70 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Genre
+  fields:
+    - name: GenreId
+      type: Int4!
+    - name: Name
+      type: Varchar
+  graphql:
+    typeName: App_Genre
+    inputTypeName: App_GenreInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Genre
+      fieldMapping:
+        GenreId:
+          column:
+            name: GenreId
+        Name:
+          column:
+            name: Name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Genre
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - GenreId
+          - Name
+
+---
+kind: Model
+version: v1
+definition:
+  name: Genre
+  objectType: Genre
+  source:
+    dataConnectorName: pg
+    collection: Genre
+  orderableFields:
+    - fieldName: GenreId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Name
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_genre
+    selectUniques:
+      - queryRootField: app_genreByGenreId
+        uniqueIdentifier:
+          - GenreId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Genre
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

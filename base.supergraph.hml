@@ -1,0 +1,19 @@
+kind: SupergraphManifest
+version: v1
+definition:
+  name: base
+  environment: dev
+  envfile: base.env.yaml
+  supergraph:
+    rootPath: supergraph
+    resources:
+    - "*.hml"
+  subgraphs:
+  - name: app
+    rootPath: app
+    resources:
+    - "*.hml"
+    - "!pg/connector/*"
+    - pg/connector/pg.build.hml
+    - "!fns/connector/*"
+    - fns/connector/fns.build.hml

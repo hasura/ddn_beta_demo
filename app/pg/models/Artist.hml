@@ -1,0 +1,70 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Artist
+  fields:
+    - name: ArtistId
+      type: Int4!
+    - name: Name
+      type: Varchar
+  graphql:
+    typeName: App_Artist
+    inputTypeName: App_ArtistInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Artist
+      fieldMapping:
+        ArtistId:
+          column:
+            name: ArtistId
+        Name:
+          column:
+            name: Name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Artist
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - ArtistId
+          - Name
+
+---
+kind: Model
+version: v1
+definition:
+  name: Artist
+  objectType: Artist
+  source:
+    dataConnectorName: pg
+    collection: Artist
+  orderableFields:
+    - fieldName: ArtistId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Name
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_artist
+    selectUniques:
+      - queryRootField: app_artistByArtistId
+        uniqueIdentifier:
+          - ArtistId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Artist
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

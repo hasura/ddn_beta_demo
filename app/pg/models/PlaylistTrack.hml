@@ -1,0 +1,71 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: PlaylistTrack
+  fields:
+    - name: PlaylistId
+      type: Int4!
+    - name: TrackId
+      type: Int4!
+  graphql:
+    typeName: App_PlaylistTrack
+    inputTypeName: App_PlaylistTrackInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: PlaylistTrack
+      fieldMapping:
+        PlaylistId:
+          column:
+            name: PlaylistId
+        TrackId:
+          column:
+            name: TrackId
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: PlaylistTrack
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - PlaylistId
+          - TrackId
+
+---
+kind: Model
+version: v1
+definition:
+  name: PlaylistTrack
+  objectType: PlaylistTrack
+  source:
+    dataConnectorName: pg
+    collection: PlaylistTrack
+  orderableFields:
+    - fieldName: PlaylistId
+      orderByDirections:
+        enableAll: true
+    - fieldName: TrackId
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_playlistTrack
+    selectUniques:
+      - queryRootField: app_playlistTrackByPkPlaylistTrack
+        uniqueIdentifier:
+          - PlaylistId
+          - TrackId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: PlaylistTrack
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

@@ -1,0 +1,97 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InvoiceLine
+  fields:
+    - name: InvoiceId
+      type: Int4!
+    - name: InvoiceLineId
+      type: Int4!
+    - name: Quantity
+      type: Int4!
+    - name: TrackId
+      type: Int4!
+    - name: UnitPrice
+      type: Numeric!
+  graphql:
+    typeName: App_InvoiceLine
+    inputTypeName: App_InvoiceLineInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: InvoiceLine
+      fieldMapping:
+        InvoiceId:
+          column:
+            name: InvoiceId
+        InvoiceLineId:
+          column:
+            name: InvoiceLineId
+        Quantity:
+          column:
+            name: Quantity
+        TrackId:
+          column:
+            name: TrackId
+        UnitPrice:
+          column:
+            name: UnitPrice
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InvoiceLine
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - InvoiceId
+          - InvoiceLineId
+          - Quantity
+          - TrackId
+          - UnitPrice
+
+---
+kind: Model
+version: v1
+definition:
+  name: InvoiceLine
+  objectType: InvoiceLine
+  source:
+    dataConnectorName: pg
+    collection: InvoiceLine
+  orderableFields:
+    - fieldName: InvoiceId
+      orderByDirections:
+        enableAll: true
+    - fieldName: InvoiceLineId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Quantity
+      orderByDirections:
+        enableAll: true
+    - fieldName: TrackId
+      orderByDirections:
+        enableAll: true
+    - fieldName: UnitPrice
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_invoiceLine
+    selectUniques:
+      - queryRootField: app_invoiceLineByInvoiceLineId
+        uniqueIdentifier:
+          - InvoiceLineId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: InvoiceLine
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

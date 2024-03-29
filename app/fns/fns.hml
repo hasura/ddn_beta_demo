@@ -1,0 +1,35 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: fns
+  url:
+    singleUrl:
+      valueFromEnv: X_HASURA_CONNECTOR_APP_FNS
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        String:
+          aggregate_functions: {}
+          comparison_operators: {}
+      object_types: {}
+      collections: []
+      functions:
+      - name: hello
+        arguments:
+          name:
+            type:
+              type: nullable
+              underlying_type:
+                type: named
+                name: String
+        result_type:
+          type: named
+          name: String
+      procedures: []
+    capabilities:
+      version: 0.1.0
+      capabilities:
+        query:
+          variables: {}
+        mutation: {}

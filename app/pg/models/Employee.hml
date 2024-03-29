@@ -1,0 +1,187 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Employee
+  fields:
+    - name: Address
+      type: Varchar
+    - name: BirthDate
+      type: Timestamp
+    - name: City
+      type: Varchar
+    - name: Country
+      type: Varchar
+    - name: Email
+      type: Varchar
+    - name: EmployeeId
+      type: Int4!
+    - name: Fax
+      type: Varchar
+    - name: FirstName
+      type: Varchar!
+    - name: HireDate
+      type: Timestamp
+    - name: LastName
+      type: Varchar!
+    - name: Phone
+      type: Varchar
+    - name: PostalCode
+      type: Varchar
+    - name: ReportsTo
+      type: Int4
+    - name: State
+      type: Varchar
+    - name: Title
+      type: Varchar
+  graphql:
+    typeName: App_Employee
+    inputTypeName: App_EmployeeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: Employee
+      fieldMapping:
+        Address:
+          column:
+            name: Address
+        BirthDate:
+          column:
+            name: BirthDate
+        City:
+          column:
+            name: City
+        Country:
+          column:
+            name: Country
+        Email:
+          column:
+            name: Email
+        EmployeeId:
+          column:
+            name: EmployeeId
+        Fax:
+          column:
+            name: Fax
+        FirstName:
+          column:
+            name: FirstName
+        HireDate:
+          column:
+            name: HireDate
+        LastName:
+          column:
+            name: LastName
+        Phone:
+          column:
+            name: Phone
+        PostalCode:
+          column:
+            name: PostalCode
+        ReportsTo:
+          column:
+            name: ReportsTo
+        State:
+          column:
+            name: State
+        Title:
+          column:
+            name: Title
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Employee
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - Address
+          - BirthDate
+          - City
+          - Country
+          - Email
+          - EmployeeId
+          - Fax
+          - FirstName
+          - HireDate
+          - LastName
+          - Phone
+          - PostalCode
+          - ReportsTo
+          - State
+          - Title
+
+---
+kind: Model
+version: v1
+definition:
+  name: Employee
+  objectType: Employee
+  source:
+    dataConnectorName: pg
+    collection: Employee
+  orderableFields:
+    - fieldName: Address
+      orderByDirections:
+        enableAll: true
+    - fieldName: BirthDate
+      orderByDirections:
+        enableAll: true
+    - fieldName: City
+      orderByDirections:
+        enableAll: true
+    - fieldName: Country
+      orderByDirections:
+        enableAll: true
+    - fieldName: Email
+      orderByDirections:
+        enableAll: true
+    - fieldName: EmployeeId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Fax
+      orderByDirections:
+        enableAll: true
+    - fieldName: FirstName
+      orderByDirections:
+        enableAll: true
+    - fieldName: HireDate
+      orderByDirections:
+        enableAll: true
+    - fieldName: LastName
+      orderByDirections:
+        enableAll: true
+    - fieldName: Phone
+      orderByDirections:
+        enableAll: true
+    - fieldName: PostalCode
+      orderByDirections:
+        enableAll: true
+    - fieldName: ReportsTo
+      orderByDirections:
+        enableAll: true
+    - fieldName: State
+      orderByDirections:
+        enableAll: true
+    - fieldName: Title
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_employee
+    selectUniques:
+      - queryRootField: app_employeeByEmployeeId
+        uniqueIdentifier:
+          - EmployeeId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Employee
+  permissions:
+    - role: admin
+      select:
+        filter: null
+

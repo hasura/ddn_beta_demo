@@ -1,0 +1,12 @@
+kind: ConnectorManifest
+version: v1
+definition:
+  name: fns
+  type: local
+  connector:
+    type: hub
+    name: hasura/nodejs:v1.2.0
+  deployments:
+  - context: .
+    env: {}
+  tunnel: true

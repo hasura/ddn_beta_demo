@@ -1,0 +1,70 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: MediaType
+  fields:
+    - name: MediaTypeId
+      type: Int4!
+    - name: Name
+      type: Varchar
+  graphql:
+    typeName: App_MediaType
+    inputTypeName: App_MediaTypeInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: pg
+      dataConnectorObjectType: MediaType
+      fieldMapping:
+        MediaTypeId:
+          column:
+            name: MediaTypeId
+        Name:
+          column:
+            name: Name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: MediaType
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - MediaTypeId
+          - Name
+
+---
+kind: Model
+version: v1
+definition:
+  name: MediaType
+  objectType: MediaType
+  source:
+    dataConnectorName: pg
+    collection: MediaType
+  orderableFields:
+    - fieldName: MediaTypeId
+      orderByDirections:
+        enableAll: true
+    - fieldName: Name
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: app_mediaType
+    selectUniques:
+      - queryRootField: app_mediaTypeByMediaTypeId
+        uniqueIdentifier:
+          - MediaTypeId
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: MediaType
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
