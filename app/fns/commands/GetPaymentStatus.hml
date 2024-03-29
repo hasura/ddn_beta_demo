@@ -1,0 +1,28 @@
+---
+kind: Command
+version: v1
+definition:
+  name: GetPaymentStatus
+  outputType: String!
+  arguments:
+    - name: order_id
+      type: Float!
+      description: The order_id for which the status will be fetched.
+  source:
+    dataConnectorName: fns
+    dataConnectorCommand:
+      function: get_payment_status
+  graphql:
+    rootFieldName: app_getPaymentStatus
+    rootFieldKind: Query
+  description: Returns the payment status for the provided order_id
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: GetPaymentStatus
+  permissions:
+    - role: admin
+      allowExecution: true
+

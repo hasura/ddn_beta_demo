@@ -148,3 +148,21 @@ definition:
         argument:
           argumentName: amount
 
+---
+kind: Relationship
+version: v1
+definition:
+  name: paymentStatus
+  source: Invoice
+  target:
+    command:
+      name: GetPaymentStatus
+      subgraph: app
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: InvoiceId
+      target:
+        argument:
+          argumentName: order_id
+
